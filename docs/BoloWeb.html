@@ -1,0 +1,152 @@
+
+<HTML>
+
+<HEAD><TITLE>BoloWeb</TITLE></HEAD>
+
+<BODY background=Images/background.jpg bgcolor=FFFFFF  text="000000"
+link="800000" vlink="FF0000">
+
+<img alt="Bolo Title"       src="images/BoloWeb.gif" width=208 height=104 align=left>
+<img alt="Double Pill Take" src="images/battle.gif"  width=200 height=104 align=right>
+<br clear=left><br clear=right>
+<h1 align=center>BoloWeb</h1>
+
+<p>BoloWeb is a service which tells you about
+<a href="http://ResComp.Stanford.EDU/~cheshire/Bolo.html">Bolo</a> games
+that are taking place right now on the internet. BoloWeb contacts Bolo
+Trackers to obtain a list of ongoing games and displays the list in your
+web browser. Currently BoloWeb gets the game information from Black
+Lightning's Internet Bolo Tracker (bolo.usu.edu) which also
+includes the listing from Mike Ellis's Bolo Tracker (gwis.circ.gwu.edu).
+If there is interest, future versions of BoloWeb may be extended to talk
+to other trackers and provide a uniform window to the Bolo World.</p>
+
+<p>BoloWeb will display a list of Bolo games on any Web Browser, but
+if you want to automatically join an Internet Game of Bolo with a
+single mouse click, you need the following:</p>
+<ol>
+<li>An Apple Macintosh Computer that is connected to the Internet
+(i.e. <b>not</b> behind a firewall that prevents Bolo packets from
+getting through).
+<li>The current version of
+<a href="ftp://bolo.stanford.edu/Public/Bolo0.99.7.cpt.hqx">Bolo</a>
+already installed on your Mac's hard disk.
+<li>A suitable Web browser that can support Bolo URLs (for more information,
+see below).
+</ol>
+
+<Form method=GET action="http://BoloWeb.Stanford.EDU/BoloWeb.ACGI">
+<CENTER>
+<INPUT TYPE="submit" VALUE="View the current BoloWeb list of games">
+</CENTER>
+</Form>
+
+<p>BoloWeb is Freeware. You can get copy of all source files from
+<a href="https://github.com/SuperSVGA/BoloWeb">BoloWeb v0.8 Sources</a>
+<hr>
+
+<h1>How the clickable links work</h1>
+
+<p>The game links in the BoloWeb listing use a special kind of URL.
+Conventional URLs usually start with "http://..." or "ftp://..." to
+indicate which network protocol should be used. Bolo game URLs start
+with "bolo://..." to indicate that the Bolo protocol should be used.
+Since web browsers don't know the Bolo protocol, they launch an external
+application -- Bolo -- to make the connection for them. (Note that this
+is <b>not</b> the same as a MIME type. MIME types are used when the browser
+understands the protocol used to fetch the document, but then doesn't
+know what to do with the document when it has it. An ongoing Bolo game
+is obviously not a "document" that you can download with ftp and save
+on your hard disk.)</p>
+
+<p>The only problem is that most Web browsers don't know about
+"bolo" URLs. If all Web Browsers used
+<a href="http://www.share.com/share/peterlewis/ic/internetconfig.html">Internet Config</a>
+(a creation of Quinn and Peter Lewis) then it wouldn't be a problem
+because you could just add Bolo to your Internet Config Helper list and
+it would work automatically without you having to wait for application
+writers to update their programs.</p>
+
+<a name = "Netscape"><h3>Netscape</h3></a>
+
+<p>Netscape versions 1.1 and later have support for Bolo URLs built-in.
+No special set-up or configuration is necessary.</p>
+
+<h3>MacWeb</h3>
+
+<p>You can make MacWeb (version 1.00ALPHA3 or later) BoloURL-aware by
+adding a new Protocol Helper with ResEdit. Follow these instructions:</p>
+<ol>
+<li>Open MacWeb with ResEdit.
+<li>Open 'MIME' Resource id 512 (Called "Default Protocol Helper Info").
+<li>Click on the line that says "1) *****" and type Cmd-K to create a new record.
+<li>Fill in the new record as follows:
+<pre>
+mime_type:        bolo   (it's not really a mime type, but never mind.)
+application name: Bolo
+Type:             BOLO
+Creator:          BOLO
+Signature:        BOLO
+Flags:            16
+</pre>
+<li>Quit ResEdit and save changes.
+</ol>
+
+<h3>NCSA Mosaic</h3>
+
+<p>NCSA have promised that future versions of Mosaic will support Bolo
+URLs, though they have not said whether it will be a special-case hack
+for Bolo (like Netscape did in version 1.1), or whether they will adopt
+Internet Config so that they automatically support all present and
+future compatible applications (which is the right way to do it).</p>
+
+<h3>Nuntius</h3>
+
+<p>Nuntius 2.0.1 or later recognises Bolo URLs, but you have to add some
+lines to its "URL script" so that it knows what to do with them. The lines
+should be added between the initial "try" line and the
+"if (theScheme is "ftp"...)" line, like this:</p>
+<pre>
+try
+	if (theScheme is "bolo") then
+		tell application "Bolo 0.99.7"
+			activate
+			&lt&ltevent GURLGURL&gt&gt theURL
+		end tell
+    else
+        if (theScheme is "ftp" and ((offset of ".htm" in theURL) is 0))
+</pre>
+
+<p>and a final matching "end if" should be added just before the final
+"on error e number en" line.</p>
+
+<p>Note: The &lt&lt and &gt&gt symbols are actually the Macintosh chevron
+characters, Option-\ and Shift-Option-\</p>
+
+<hr>
+
+<h1>Access speed</h1>
+
+<p>If accessing the game list seems slow, it is because HTTP opens a
+separate TCP connection for every little icon, even thought they are
+only about 200 bytes each and all of them together could fit in a
+single Ethernet packet if Web browsers just used UDP instead of TCP.
+Lets hope for more sophisticated protocols in the future.</p>
+
+<HR>
+
+<ADDRESS>
+<p><b>Bolo Author:</b>
+<a href="http://ResComp.Stanford.EDU/~cheshire/bio.html">Stuart Cheshire</a></p>
+
+<p>The <b>Bolo Web</b> by:
+<a href="http://sai.Stanford.EDU/pavani-bio.html">Pavani Diwanji</a></p>
+
+<p><b>More
+</b><a href="http://ResComp.Stanford.EDU/~cheshire/Bolo.html">Bolo Pages</a></p>
+</ADDRESS>
+
+</BODY>
+
+</HTML>
+
